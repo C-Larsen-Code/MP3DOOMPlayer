@@ -1,0 +1,41 @@
+[0/1] Re-running CMake...
+-- git rev-parse returned 'fatal: detected dubious ownership in repository at '/opt/esp5/esp-idf'
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory /opt/esp5/esp-idf'
+-- Building ESP-IDF components for target esp32
+-- Project sdkconfig file /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/sdkconfig
+Loading defaults file /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/sdkconfig.defaults...
+-- Compiler supported targets: xtensa-esp-elf
+-- App "lab04" version: 574763f-dirty
+-- Adding linker script /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script /opt/esp5/esp-idf/components/esp_system/ld/esp32/sections.ld.in
+-- Adding linker script /opt/esp5/esp-idf/components/esp_rom/esp32/ld/esp32.rom.ld
+-- Adding linker script /opt/esp5/esp-idf/components/esp_rom/esp32/ld/esp32.rom.api.ld
+-- Adding linker script /opt/esp5/esp-idf/components/esp_rom/esp32/ld/esp32.rom.libgcc.ld
+-- Adding linker script /opt/esp5/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-data.ld
+-- Adding linker script /opt/esp5/esp-idf/components/esp_rom/esp32/ld/esp32.rom.syscalls.ld
+-- Adding linker script /opt/esp5/esp-idf/components/esp_rom/esp32/ld/esp32.rom.newlib-funcs.ld
+-- Adding linker script /opt/esp5/esp-idf/components/soc/esp32/ld/esp32.peripherals.ld
+-- Components: app_update bootloader bootloader_support c24k_8b config cxx driver efuse esp_adc esp_app_format esp_bootloader_format esp_common esp_hw_support esp_mm esp_partition esp_pm esp_ringbuf esp_rom esp_system esp_timer esptool_py freertos hal heap joy lcd log main mbedtls newlib partition_table pin pthread soc sound spi_flash tone xtensa
+-- Component paths: /opt/esp5/esp-idf/components/app_update /opt/esp5/esp-idf/components/bootloader /opt/esp5/esp-idf/components/bootloader_support /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/components/c24k_8b /auto/fsf/coltony/Desktop/ECEn330_Fall24/components/config /opt/esp5/esp-idf/components/cxx /opt/esp5/esp-idf/components/driver /opt/esp5/esp-idf/components/efuse /opt/esp5/esp-idf/components/esp_adc /opt/esp5/esp-idf/components/esp_app_format /opt/esp5/esp-idf/components/esp_bootloader_format /opt/esp5/esp-idf/components/esp_common /opt/esp5/esp-idf/components/esp_hw_support /opt/esp5/esp-idf/components/esp_mm /opt/esp5/esp-idf/components/esp_partition /opt/esp5/esp-idf/components/esp_pm /opt/esp5/esp-idf/components/esp_ringbuf /opt/esp5/esp-idf/components/esp_rom /opt/esp5/esp-idf/components/esp_system /opt/esp5/esp-idf/components/esp_timer /opt/esp5/esp-idf/components/esptool_py /opt/esp5/esp-idf/components/freertos /opt/esp5/esp-idf/components/hal /opt/esp5/esp-idf/components/heap /auto/fsf/coltony/Desktop/ECEn330_Fall24/components/joy /auto/fsf/coltony/Desktop/ECEn330_Fall24/components/lcd /opt/esp5/esp-idf/components/log /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/main /opt/esp5/esp-idf/components/mbedtls /opt/esp5/esp-idf/components/newlib /opt/esp5/esp-idf/components/partition_table /auto/fsf/coltony/Desktop/ECEn330_Fall24/components/pin /opt/esp5/esp-idf/components/pthread /opt/esp5/esp-idf/components/soc /auto/fsf/coltony/Desktop/ECEn330_Fall24/components/sound /opt/esp5/esp-idf/components/spi_flash /auto/fsf/coltony/Desktop/ECEn330_Fall24/components/tone /opt/esp5/esp-idf/components/xtensa
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build
+[1/11] Building C object esp-idf/esp_app_format/CMakeFiles/__idf_esp_app_format.dir/esp_app_desc.c.obj
+[2/11] Linking C static library esp-idf/esp_app_format/libesp_app_format.a
+[3/11] Performing build step for 'bootloader'
+[1/1] cd /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/bootloader/esp-idf/esptool_py && /opt/esp5/python_env/idf5.2_py3.10_env/bin/python /opt/esp5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/bootloader/bootloader.bin
+Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.
+[4/9] Building C object esp-idf/tone/CMakeFiles/__idf_tone.dir/tone.c.obj
+[5/9] Linking C static library esp-idf/tone/libtone.a
+[6/9] Generating ld/sections.ld
+[7/9] Linking CXX executable lab04.elf
+[8/9] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/lab04.bin
+[9/9] cd /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/esp-idf/esptool_py && /opt/esp5/python_env/idf5.2_py3.10_env/bin/python /opt/esp5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/partition_table/partition-table.bin /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/lab04.bin
+lab04.bin binary size 0x69700 bytes. Smallest app partition is 0x100000 bytes. 0x96900 bytes (59%) free.

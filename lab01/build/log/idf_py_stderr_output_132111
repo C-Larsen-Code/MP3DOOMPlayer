@@ -1,0 +1,22 @@
+fatal: detected dubious ownership in repository at '/opt/esp5/esp-idf'
+To add an exception for this directory, call:
+
+	git config --global --add safe.directory /opt/esp5/esp-idf
+CMake Error at /opt/esp5/esp-idf/tools/cmake/component.cmake:479 (add_library):
+  Cannot find source file:
+
+    /auto/fsf/coltony/Desktop/ecen330/lab01/main/main.c
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h
+  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc
+Call Stack (most recent call first):
+  main/CMakeLists.txt:1 (idf_component_register)
+
+
+CMake Error at /opt/esp5/esp-idf/tools/cmake/component.cmake:479 (add_library):
+  No SOURCES given to target: __idf_main
+Call Stack (most recent call first):
+  main/CMakeLists.txt:1 (idf_component_register)
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.

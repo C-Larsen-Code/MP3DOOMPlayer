@@ -1,0 +1,12 @@
+[1/6] Performing build step for 'bootloader'
+[1/1] cd /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/bootloader/esp-idf/esptool_py && /opt/esp5/python_env/idf5.2_py3.10_env/bin/python /opt/esp5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/bootloader/bootloader.bin
+Bootloader binary size 0x6860 bytes. 0x7a0 bytes (7%) free.
+[2/4] Linking CXX executable lab04.elf
+[3/4] Generating binary image from built executable
+esptool.py v4.7.0
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/lab04.bin
+[4/4] cd /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/esp-idf/esptool_py && /opt/esp5/python_env/idf5.2_py3.10_env/bin/python /opt/esp5/esp-idf/components/partition_table/check_sizes.py --offset 0x8000 partition --type app /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/partition_table/partition-table.bin /auto/fsf/coltony/Desktop/ECEn330_Fall24/lab04/build/lab04.bin
+lab04.bin binary size 0x69710 bytes. Smallest app partition is 0x100000 bytes. 0x968f0 bytes (59%) free.

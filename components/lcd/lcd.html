@@ -1,0 +1,2052 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>components/lcd/lcd.h File Reference</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="header">
+  <div class="summary">
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+<div class="headertitle"><div class="title">lcd.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Functions to draw primitive shapes on the LCD display.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &quot;hw.h&quot;</code><br />
+</div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Use to create a custom color.</div></td></tr>
+<tr class="memitem:ace40254f5e0b2403ca5ace51c6a90824"><td class="memItemLeft" align="right" valign="top"><a id="ace40254f5e0b2403ca5ace51c6a90824"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>rgb565</b>(r,  g,  b)&#160;&#160;&#160;((((r) &amp; 0xF8) &lt;&lt; 8) | (((g) &amp; 0xFC) &lt;&lt; 3) | (((b) &amp; 0xF8) &gt;&gt; 3))</td></tr>
+<tr class="separator:ace40254f5e0b2403ca5ace51c6a90824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Standard colors.</div></td></tr>
+<tr class="memitem:a8d23feea868a983c8c2b661e1e16972f"><td class="memItemLeft" align="right" valign="top"><a id="a8d23feea868a983c8c2b661e1e16972f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>RED</b>&#160;&#160;&#160;rgb565(255,   0,   0)</td></tr>
+<tr class="separator:a8d23feea868a983c8c2b661e1e16972f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfbc006ea433ad708fdee3e82996e721"><td class="memItemLeft" align="right" valign="top"><a id="acfbc006ea433ad708fdee3e82996e721"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GREEN</b>&#160;&#160;&#160;rgb565(  0, 255,   0)</td></tr>
+<tr class="separator:acfbc006ea433ad708fdee3e82996e721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79d10e672abb49ad63eeaa8aaef57c38"><td class="memItemLeft" align="right" valign="top"><a id="a79d10e672abb49ad63eeaa8aaef57c38"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BLUE</b>&#160;&#160;&#160;rgb565(  0,   0, 255)</td></tr>
+<tr class="separator:a79d10e672abb49ad63eeaa8aaef57c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b3b25cba33b07c303f3060fe41887f6"><td class="memItemLeft" align="right" valign="top"><a id="a7b3b25cba33b07c303f3060fe41887f6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>BLACK</b>&#160;&#160;&#160;rgb565(  0,   0,   0)</td></tr>
+<tr class="separator:a7b3b25cba33b07c303f3060fe41887f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87b537f5fa5c109d3c05c13d6b18f382"><td class="memItemLeft" align="right" valign="top"><a id="a87b537f5fa5c109d3c05c13d6b18f382"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>WHITE</b>&#160;&#160;&#160;rgb565(255, 255, 255)</td></tr>
+<tr class="separator:a87b537f5fa5c109d3c05c13d6b18f382"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5f70677050eecd8909e0248e07b9e73"><td class="memItemLeft" align="right" valign="top"><a id="ae5f70677050eecd8909e0248e07b9e73"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>GRAY</b>&#160;&#160;&#160;rgb565(128, 128, 128)</td></tr>
+<tr class="separator:ae5f70677050eecd8909e0248e07b9e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf681265909adf3d3e8116c93c0ba179"><td class="memItemLeft" align="right" valign="top"><a id="abf681265909adf3d3e8116c93c0ba179"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>YELLOW</b>&#160;&#160;&#160;rgb565(255, 255,   0)</td></tr>
+<tr class="separator:abf681265909adf3d3e8116c93c0ba179"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad243f93c16bc4c1d3e0a13b84421d760"><td class="memItemLeft" align="right" valign="top"><a id="ad243f93c16bc4c1d3e0a13b84421d760"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>CYAN</b>&#160;&#160;&#160;rgb565(  0, 156, 209)</td></tr>
+<tr class="separator:ad243f93c16bc4c1d3e0a13b84421d760"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f699060902f800f12aaae150f3a708e"><td class="memItemLeft" align="right" valign="top"><a id="a6f699060902f800f12aaae150f3a708e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAGENTA</b>&#160;&#160;&#160;rgb565(128,   0, 128)</td></tr>
+<tr class="separator:a6f699060902f800f12aaae150f3a708e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bb0b009e7a7390473ace4d98bd843c0"><td class="memItemLeft" align="right" valign="top"><a id="a0bb0b009e7a7390473ace4d98bd843c0"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>PURPLE</b>&#160;&#160;&#160;MAGENTA</td></tr>
+<tr class="separator:a0bb0b009e7a7390473ace4d98bd843c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Character width and height in pixels.</div></td></tr>
+<tr class="memitem:ad5e94e3f058fd0b4a8453b16a264fd3c"><td class="memItemLeft" align="right" valign="top"><a id="ad5e94e3f058fd0b4a8453b16a264fd3c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_CHAR_W</b>&#160;&#160;&#160;6</td></tr>
+<tr class="separator:ad5e94e3f058fd0b4a8453b16a264fd3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3731e1a3784819005a513a2e52284eb2"><td class="memItemLeft" align="right" valign="top"><a id="a3731e1a3784819005a513a2e52284eb2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_CHAR_H</b>&#160;&#160;&#160;8</td></tr>
+<tr class="separator:a3731e1a3784819005a513a2e52284eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Screen width and height in pixels.</div></td></tr>
+<tr class="memitem:a9ae4d825632d060cd74be29922e0c364"><td class="memItemLeft" align="right" valign="top"><a id="a9ae4d825632d060cd74be29922e0c364"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_W</b>&#160;&#160;&#160;HW_LCD_W</td></tr>
+<tr class="separator:a9ae4d825632d060cd74be29922e0c364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137b94e8638bc4b6a0740668aefe5a58"><td class="memItemLeft" align="right" valign="top"><a id="a137b94e8638bc4b6a0740668aefe5a58"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>LCD_H</b>&#160;&#160;&#160;HW_LCD_H</td></tr>
+<tr class="separator:a137b94e8638bc4b6a0740668aefe5a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a333c39cc06c1009276b4be1196a87d3d"><td class="memItemLeft" align="right" valign="top">typedef int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a></td></tr>
+<tr class="memdesc:a333c39cc06c1009276b4be1196a87d3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Coordinate type for x,y screen positions.  <a href="#a333c39cc06c1009276b4be1196a87d3d">More...</a><br /></td></tr>
+<tr class="separator:a333c39cc06c1009276b4be1196a87d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fb59ae1391d527c0bd119b5a95fb8a1"><td class="memItemLeft" align="right" valign="top">typedef uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a></td></tr>
+<tr class="memdesc:a1fb59ae1391d527c0bd119b5a95fb8a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Color type for drawing pixels and objects.  <a href="#a1fb59ae1391d527c0bd119b5a95fb8a1">More...</a><br /></td></tr>
+<tr class="separator:a1fb59ae1391d527c0bd119b5a95fb8a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf93c956ebda204c8da416c71ffc2139"><td class="memItemLeft" align="right" valign="top"><a id="abf93c956ebda204c8da416c71ffc2139"></a>
+typedef int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf93c956ebda204c8da416c71ffc2139">angle_t</a></td></tr>
+<tr class="memdesc:abf93c956ebda204c8da416c71ffc2139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Angle type, +/- [0, 360] degrees. <br /></td></tr>
+<tr class="separator:abf93c956ebda204c8da416c71ffc2139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ae9ae980041e438eed7a3af43ce4e9f6b"><td class="memItemLeft" align="right" valign="top"><a id="ae9ae980041e438eed7a3af43ce4e9f6b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9ae980041e438eed7a3af43ce4e9f6b">direction_t</a> { <b>DIRECTION0</b>
+, <b>DIRECTION90</b>
+, <b>DIRECTION180</b>
+, <b>DIRECTION270</b>
+ }</td></tr>
+<tr class="memdesc:ae9ae980041e438eed7a3af43ce4e9f6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Direction type for font orientation. <br /></td></tr>
+<tr class="separator:ae9ae980041e438eed7a3af43ce4e9f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78ba51821d0743b87f3621e248cd109b"><td class="memItemLeft" align="right" valign="top"><a id="a78ba51821d0743b87f3621e248cd109b"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a78ba51821d0743b87f3621e248cd109b">scroll_t</a> { <b>SCROLL_RIGHT</b> = 1
+, <b>SCROLL_LEFT</b> = 2
+, <b>SCROLL_DOWN</b> = 3
+, <b>SCROLL_UP</b> = 4
+ }</td></tr>
+<tr class="memdesc:a78ba51821d0743b87f3621e248cd109b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scroll type for movement of screen image. <br /></td></tr>
+<tr class="separator:a78ba51821d0743b87f3621e248cd109b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a6842775ba83d166f02b8fef8bb63b1e6"><td class="memItemLeft" align="right" valign="top"><a id="a6842775ba83d166f02b8fef8bb63b1e6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6842775ba83d166f02b8fef8bb63b1e6">lcd_init</a> (void)</td></tr>
+<tr class="memdesc:a6842775ba83d166f02b8fef8bb63b1e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the LCD module. <br /></td></tr>
+<tr class="separator:a6842775ba83d166f02b8fef8bb63b1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Draw (outline) and fill primitives.</div></td></tr>
+<tr class="memitem:a98543a510b36ae6c5e3e9bbc8ecc9466"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a98543a510b36ae6c5e3e9bbc8ecc9466">lcd_fillScreen</a> (<a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a98543a510b36ae6c5e3e9bbc8ecc9466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fill the screen with one color.  <a href="#a98543a510b36ae6c5e3e9bbc8ecc9466">More...</a><br /></td></tr>
+<tr class="separator:a98543a510b36ae6c5e3e9bbc8ecc9466"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10ec2ba645f78cf9921eb9af3e7bf70b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a10ec2ba645f78cf9921eb9af3e7bf70b">lcd_drawPixel</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a10ec2ba645f78cf9921eb9af3e7bf70b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a pixel.  <a href="#a10ec2ba645f78cf9921eb9af3e7bf70b">More...</a><br /></td></tr>
+<tr class="separator:a10ec2ba645f78cf9921eb9af3e7bf70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3322766401144c29e9a5ffae16cfc788"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3322766401144c29e9a5ffae16cfc788">lcd_drawHPixels</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, const <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> *colors)</td></tr>
+<tr class="memdesc:a3322766401144c29e9a5ffae16cfc788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw multiple pixels in a horizontal line.  <a href="#a3322766401144c29e9a5ffae16cfc788">More...</a><br /></td></tr>
+<tr class="separator:a3322766401144c29e9a5ffae16cfc788"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a0b565ced84f4c33d684a7393014d57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7a0b565ced84f4c33d684a7393014d57">lcd_drawHLine</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a7a0b565ced84f4c33d684a7393014d57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw horizontal line (faster than arbitrary line).  <a href="#a7a0b565ced84f4c33d684a7393014d57">More...</a><br /></td></tr>
+<tr class="separator:a7a0b565ced84f4c33d684a7393014d57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9275f229ee7c90c874cb937af4b2e1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae9275f229ee7c90c874cb937af4b2e1f">lcd_drawVLine</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:ae9275f229ee7c90c874cb937af4b2e1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw vertical line (faster than arbitrary line).  <a href="#ae9275f229ee7c90c874cb937af4b2e1f">More...</a><br /></td></tr>
+<tr class="separator:ae9275f229ee7c90c874cb937af4b2e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bf0ae380f070b31774f8a8e36f9e628"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bf0ae380f070b31774f8a8e36f9e628">lcd_drawLine</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a3bf0ae380f070b31774f8a8e36f9e628"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a line between 2 arbitrary points.  <a href="#a3bf0ae380f070b31774f8a8e36f9e628">More...</a><br /></td></tr>
+<tr class="separator:a3bf0ae380f070b31774f8a8e36f9e628"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7970b880a675aa42a99c7bca87e07ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af7970b880a675aa42a99c7bca87e07ac">lcd_drawRect</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:af7970b880a675aa42a99c7bca87e07ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rectangle outline with the specified color.  <a href="#af7970b880a675aa42a99c7bca87e07ac">More...</a><br /></td></tr>
+<tr class="separator:af7970b880a675aa42a99c7bca87e07ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a905c35e881e7645e5f3dc430e01d6a2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a905c35e881e7645e5f3dc430e01d6a2b">lcd_fillRect</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a905c35e881e7645e5f3dc430e01d6a2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle with the specified color.  <a href="#a905c35e881e7645e5f3dc430e01d6a2b">More...</a><br /></td></tr>
+<tr class="separator:a905c35e881e7645e5f3dc430e01d6a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9c149f618d4020f7a26ae887b1e7623"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af9c149f618d4020f7a26ae887b1e7623">lcd_drawTriangle</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x2, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y2, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:af9c149f618d4020f7a26ae887b1e7623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a triangle outline using 3 arbitrary points.  <a href="#af9c149f618d4020f7a26ae887b1e7623">More...</a><br /></td></tr>
+<tr class="separator:af9c149f618d4020f7a26ae887b1e7623"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c5e193af4b230933e7496176735e7c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7c5e193af4b230933e7496176735e7c1">lcd_fillTriangle</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x2, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y2, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a7c5e193af4b230933e7496176735e7c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled triangle using 3 arbitrary points.  <a href="#a7c5e193af4b230933e7496176735e7c1">More...</a><br /></td></tr>
+<tr class="separator:a7c5e193af4b230933e7496176735e7c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a3cbdb874c04ae2aecb6a2c374532e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a3cbdb874c04ae2aecb6a2c374532e8">lcd_drawCircle</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> xc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> yc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> r, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a8a3cbdb874c04ae2aecb6a2c374532e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a circle outline.  <a href="#a8a3cbdb874c04ae2aecb6a2c374532e8">More...</a><br /></td></tr>
+<tr class="separator:a8a3cbdb874c04ae2aecb6a2c374532e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a315f478f16a3c23c8867a2a5ce37d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6a315f478f16a3c23c8867a2a5ce37d0">lcd_fillCircle</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> xc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> yc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> r, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a6a315f478f16a3c23c8867a2a5ce37d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a circle with filled color.  <a href="#a6a315f478f16a3c23c8867a2a5ce37d0">More...</a><br /></td></tr>
+<tr class="separator:a6a315f478f16a3c23c8867a2a5ce37d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84706a0789eff79b046a6c2ab2e7379b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84706a0789eff79b046a6c2ab2e7379b">lcd_drawRoundRect</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> r, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a84706a0789eff79b046a6c2ab2e7379b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rounded rectangle with no fill color.  <a href="#a84706a0789eff79b046a6c2ab2e7379b">More...</a><br /></td></tr>
+<tr class="separator:a84706a0789eff79b046a6c2ab2e7379b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9c35f27fb4d3ad243817503410c9b76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9c35f27fb4d3ad243817503410c9b76">lcd_fillRoundRect</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> r, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:ac9c35f27fb4d3ad243817503410c9b76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rounded rectangle with fill color.  <a href="#ac9c35f27fb4d3ad243817503410c9b76">More...</a><br /></td></tr>
+<tr class="separator:ac9c35f27fb4d3ad243817503410c9b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60c4f6da0fd47614ef01ddb0a7a9e5ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a60c4f6da0fd47614ef01ddb0a7a9e5ef">lcd_drawArrow</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a60c4f6da0fd47614ef01ddb0a7a9e5ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw arrow outline.  <a href="#a60c4f6da0fd47614ef01ddb0a7a9e5ef">More...</a><br /></td></tr>
+<tr class="separator:a60c4f6da0fd47614ef01ddb0a7a9e5ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad33bf0d8fa3f8fcb2e960618276b75b0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad33bf0d8fa3f8fcb2e960618276b75b0">lcd_fillArrow</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:ad33bf0d8fa3f8fcb2e960618276b75b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw filled arrow.  <a href="#ad33bf0d8fa3f8fcb2e960618276b75b0">More...</a><br /></td></tr>
+<tr class="separator:ad33bf0d8fa3f8fcb2e960618276b75b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9248b7dd9aa88e6223920d74bbbbc81c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9248b7dd9aa88e6223920d74bbbbc81c">lcd_drawBitmap</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, const uint8_t *bitmap, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a9248b7dd9aa88e6223920d74bbbbc81c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a 1-bit image at the specified location using the specified color for set bits. Unset bits are transparent (no change to destination).  <a href="#a9248b7dd9aa88e6223920d74bbbbc81c">More...</a><br /></td></tr>
+<tr class="separator:a9248b7dd9aa88e6223920d74bbbbc81c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab993bfd3d0617976b72b4b8b5879a35d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab993bfd3d0617976b72b4b8b5879a35d">lcd_drawRGBBitmap</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, const <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> *bitmap, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h)</td></tr>
+<tr class="memdesc:ab993bfd3d0617976b72b4b8b5879a35d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw an image at the specified location.  <a href="#ab993bfd3d0617976b72b4b8b5879a35d">More...</a><br /></td></tr>
+<tr class="separator:ab993bfd3d0617976b72b4b8b5879a35d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Rectangle variants that specify two diagonal corners.</div></td></tr>
+<tr class="memitem:af54cdc50eb981372a47d346b115665b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af54cdc50eb981372a47d346b115665b5">lcd_drawRect2</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:af54cdc50eb981372a47d346b115665b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rectangle based on two diagonal corners.  <a href="#af54cdc50eb981372a47d346b115665b5">More...</a><br /></td></tr>
+<tr class="separator:af54cdc50eb981372a47d346b115665b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1b371c3203f77ad5432c4a698405387"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac1b371c3203f77ad5432c4a698405387">lcd_fillRect2</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:ac1b371c3203f77ad5432c4a698405387"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled rectangle based on two diagonal corners.  <a href="#ac1b371c3203f77ad5432c4a698405387">More...</a><br /></td></tr>
+<tr class="separator:ac1b371c3203f77ad5432c4a698405387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad524ec2613858faed6b34a7b2817ca41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad524ec2613858faed6b34a7b2817ca41">lcd_drawRoundRect2</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> r, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:ad524ec2613858faed6b34a7b2817ca41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rounded rectangle based on two diagonal corners.  <a href="#ad524ec2613858faed6b34a7b2817ca41">More...</a><br /></td></tr>
+<tr class="separator:ad524ec2613858faed6b34a7b2817ca41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a291ede087907e14f7a7e68aad2c0fb8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a291ede087907e14f7a7e68aad2c0fb8c">lcd_fillRoundRect2</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y0, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y1, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> r, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a291ede087907e14f7a7e68aad2c0fb8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a filled, rounded rectangle based on two diagonal corners.  <a href="#a291ede087907e14f7a7e68aad2c0fb8c">More...</a><br /></td></tr>
+<tr class="separator:a291ede087907e14f7a7e68aad2c0fb8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Specify center, size, and rotation angle of primitive shape.</div></td></tr>
+<tr class="memitem:a99855ec3f73590a2175f231b82af36e7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99855ec3f73590a2175f231b82af36e7">lcd_drawRectC</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> xc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> yc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h, <a class="el" href="#abf93c956ebda204c8da416c71ffc2139">angle_t</a> angle, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a99855ec3f73590a2175f231b82af36e7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a rectangle outline based on a center point.  <a href="#a99855ec3f73590a2175f231b82af36e7">More...</a><br /></td></tr>
+<tr class="separator:a99855ec3f73590a2175f231b82af36e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a758438c1cbb61fe7866a53a02f4e0e7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a758438c1cbb61fe7866a53a02f4e0e7d">lcd_drawTriangleC</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> xc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> yc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> w, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> h, <a class="el" href="#abf93c956ebda204c8da416c71ffc2139">angle_t</a> angle, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a758438c1cbb61fe7866a53a02f4e0e7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a triangle outline based on a center point.  <a href="#a758438c1cbb61fe7866a53a02f4e0e7d">More...</a><br /></td></tr>
+<tr class="separator:a758438c1cbb61fe7866a53a02f4e0e7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfd05ed8ae9783db33fd907e2bf4c47d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adfd05ed8ae9783db33fd907e2bf4c47d">lcd_drawRegularPolygonC</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> xc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> yc, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> n, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> r, <a class="el" href="#abf93c956ebda204c8da416c71ffc2139">angle_t</a> angle, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:adfd05ed8ae9783db33fd907e2bf4c47d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a regular polygon outline based on a center point.  <a href="#adfd05ed8ae9783db33fd907e2bf4c47d">More...</a><br /></td></tr>
+<tr class="separator:adfd05ed8ae9783db33fd907e2bf4c47d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Draw characters and strings.</div></td></tr>
+<tr class="memitem:af8e4578691d8ad7c8ca181aa05907eee"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af8e4578691d8ad7c8ca181aa05907eee">lcd_drawChar</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, char ascii, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:af8e4578691d8ad7c8ca181aa05907eee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a single character.  <a href="#af8e4578691d8ad7c8ca181aa05907eee">More...</a><br /></td></tr>
+<tr class="separator:af8e4578691d8ad7c8ca181aa05907eee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7c84776fd07de366a60c9209e0e37c1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae7c84776fd07de366a60c9209e0e37c1">lcd_drawString</a> (<a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> x, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> y, const char *ascii, <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:ae7c84776fd07de366a60c9209e0e37c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw a string.  <a href="#ae7c84776fd07de366a60c9209e0e37c1">More...</a><br /></td></tr>
+<tr class="separator:ae7c84776fd07de366a60c9209e0e37c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Font parameters.</div></td></tr>
+<tr class="memitem:a94a61329f21b7e4fe40ec37de7aa9e37"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94a61329f21b7e4fe40ec37de7aa9e37">lcd_setFontDirection</a> (<a class="el" href="#ae9ae980041e438eed7a3af43ce4e9f6b">direction_t</a> dir)</td></tr>
+<tr class="memdesc:a94a61329f21b7e4fe40ec37de7aa9e37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set font direction.  <a href="#a94a61329f21b7e4fe40ec37de7aa9e37">More...</a><br /></td></tr>
+<tr class="separator:a94a61329f21b7e4fe40ec37de7aa9e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacf4729d53cadebe4019ed6a4f5e5ff4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aacf4729d53cadebe4019ed6a4f5e5ff4">lcd_setFontSize</a> (uint8_t size)</td></tr>
+<tr class="memdesc:aacf4729d53cadebe4019ed6a4f5e5ff4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set font size.  <a href="#aacf4729d53cadebe4019ed6a4f5e5ff4">More...</a><br /></td></tr>
+<tr class="separator:aacf4729d53cadebe4019ed6a4f5e5ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7128b6c87b7de480f9d9c4d7deed44b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7128b6c87b7de480f9d9c4d7deed44b9">lcd_setFontBackground</a> (<a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> color)</td></tr>
+<tr class="memdesc:a7128b6c87b7de480f9d9c4d7deed44b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set font background color.  <a href="#a7128b6c87b7de480f9d9c4d7deed44b9">More...</a><br /></td></tr>
+<tr class="separator:a7128b6c87b7de480f9d9c4d7deed44b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58c62f1da1233b17d9d676df84e40df3"><td class="memItemLeft" align="right" valign="top"><a id="a58c62f1da1233b17d9d676df84e40df3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58c62f1da1233b17d9d676df84e40df3">lcd_noFontBackground</a> (void)</td></tr>
+<tr class="memdesc:a58c62f1da1233b17d9d676df84e40df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">No font background. Pixels surrounding characters are unchanged. <br /></td></tr>
+<tr class="separator:a58c62f1da1233b17d9d676df84e40df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Display configuration.</div></td></tr>
+<tr class="memitem:a50214076465d14ac46e93b3d6883347d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a50214076465d14ac46e93b3d6883347d">lcd_spiClockFreq</a> (int32_t freq)</td></tr>
+<tr class="memdesc:a50214076465d14ac46e93b3d6883347d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set SPI clock frequency for SPI bus used by display.  <a href="#a50214076465d14ac46e93b3d6883347d">More...</a><br /></td></tr>
+<tr class="separator:a50214076465d14ac46e93b3d6883347d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfcbb3a1f837bb610240ebc169bdd84e"><td class="memItemLeft" align="right" valign="top"><a id="acfcbb3a1f837bb610240ebc169bdd84e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#acfcbb3a1f837bb610240ebc169bdd84e">lcd_displayOff</a> (void)</td></tr>
+<tr class="memdesc:acfcbb3a1f837bb610240ebc169bdd84e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display off. <br /></td></tr>
+<tr class="separator:acfcbb3a1f837bb610240ebc169bdd84e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a198aa86960fe3eededa1b52342d51529"><td class="memItemLeft" align="right" valign="top"><a id="a198aa86960fe3eededa1b52342d51529"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a198aa86960fe3eededa1b52342d51529">lcd_displayOn</a> (void)</td></tr>
+<tr class="memdesc:a198aa86960fe3eededa1b52342d51529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display on. <br /></td></tr>
+<tr class="separator:a198aa86960fe3eededa1b52342d51529"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30594f407075aa5b21b38f38f3498656"><td class="memItemLeft" align="right" valign="top"><a id="a30594f407075aa5b21b38f38f3498656"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a30594f407075aa5b21b38f38f3498656">lcd_backlightOff</a> (void)</td></tr>
+<tr class="memdesc:a30594f407075aa5b21b38f38f3498656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backlight off. <br /></td></tr>
+<tr class="separator:a30594f407075aa5b21b38f38f3498656"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4bf262b098df7086e48790c415518955"><td class="memItemLeft" align="right" valign="top"><a id="a4bf262b098df7086e48790c415518955"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4bf262b098df7086e48790c415518955">lcd_backlightOn</a> (void)</td></tr>
+<tr class="memdesc:a4bf262b098df7086e48790c415518955"><td class="mdescLeft">&#160;</td><td class="mdescRight">Backlight on. <br /></td></tr>
+<tr class="separator:a4bf262b098df7086e48790c415518955"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7927604bc170302b1560be36262ff141"><td class="memItemLeft" align="right" valign="top"><a id="a7927604bc170302b1560be36262ff141"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7927604bc170302b1560be36262ff141">lcd_inversionOff</a> (void)</td></tr>
+<tr class="memdesc:a7927604bc170302b1560be36262ff141"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display inversion off. <br /></td></tr>
+<tr class="separator:a7927604bc170302b1560be36262ff141"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25360e49a4c7634549c03fc645a6e96f"><td class="memItemLeft" align="right" valign="top"><a id="a25360e49a4c7634549c03fc645a6e96f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a25360e49a4c7634549c03fc645a6e96f">lcd_inversionOn</a> (void)</td></tr>
+<tr class="memdesc:a25360e49a4c7634549c03fc645a6e96f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display inversion on. <br /></td></tr>
+<tr class="separator:a25360e49a4c7634549c03fc645a6e96f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Frame management.</div></td></tr>
+<tr class="memitem:a845071307a763385d268c22eae6ece38"><td class="memItemLeft" align="right" valign="top"><a id="a845071307a763385d268c22eae6ece38"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a845071307a763385d268c22eae6ece38">lcd_frameEnable</a> (void)</td></tr>
+<tr class="memdesc:a845071307a763385d268c22eae6ece38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate the frame buffer and enable its use. <br /></td></tr>
+<tr class="separator:a845071307a763385d268c22eae6ece38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9155aedc7734374859755d7f9f731b4d"><td class="memItemLeft" align="right" valign="top"><a id="a9155aedc7734374859755d7f9f731b4d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9155aedc7734374859755d7f9f731b4d">lcd_frameDisable</a> (void)</td></tr>
+<tr class="memdesc:a9155aedc7734374859755d7f9f731b4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocate the frame buffer and disable its use. <br /></td></tr>
+<tr class="separator:a9155aedc7734374859755d7f9f731b4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6af89f7b6926e90d7fc6a1be2604f0ce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6af89f7b6926e90d7fc6a1be2604f0ce">lcd_getFrameBuffer</a> (void)</td></tr>
+<tr class="memdesc:a6af89f7b6926e90d7fc6a1be2604f0ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the frame buffer.  <a href="#a6af89f7b6926e90d7fc6a1be2604f0ce">More...</a><br /></td></tr>
+<tr class="separator:a6af89f7b6926e90d7fc6a1be2604f0ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a935574f6974c07b0c466380fdfa39a12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a935574f6974c07b0c466380fdfa39a12">lcd_wrapAround</a> (<a class="el" href="#a78ba51821d0743b87f3621e248cd109b">scroll_t</a> scroll, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> start, <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> end)</td></tr>
+<tr class="memdesc:a935574f6974c07b0c466380fdfa39a12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Scroll image by one pixel between the start and end coordinates.  <a href="#a935574f6974c07b0c466380fdfa39a12">More...</a><br /></td></tr>
+<tr class="separator:a935574f6974c07b0c466380fdfa39a12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed8b35ab03fd439fc4c45d054ba12cef"><td class="memItemLeft" align="right" valign="top"><a id="aed8b35ab03fd439fc4c45d054ba12cef"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aed8b35ab03fd439fc4c45d054ba12cef">lcd_writeFrame</a> (void)</td></tr>
+<tr class="memdesc:aed8b35ab03fd439fc4c45d054ba12cef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write frame buffer to display. Requires frame buffer to be enabled. <br /></td></tr>
+<tr class="separator:aed8b35ab03fd439fc4c45d054ba12cef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Functions to draw primitive shapes on the LCD display. </p>
+<p>Many functions are similar to the Adafruit GFX Graphics Library. See this <a href="https://learn.adafruit.com/adafruit-gfx-graphics-library/coordinate-system-and-units">link</a> for more detail about the coordinate system and graphics primitives. </p>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a1fb59ae1391d527c0bd119b5a95fb8a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1fb59ae1391d527c0bd119b5a95fb8a1">&#9670;&nbsp;</a></span>color_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint16_t <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Color type for drawing pixels and objects. </p>
+<p>16-bit RGB Color (5-6-5). </p>
+
+</div>
+</div>
+<a id="a333c39cc06c1009276b4be1196a87d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a333c39cc06c1009276b4be1196a87d3d">&#9670;&nbsp;</a></span>coord_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef int32_t <a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Coordinate type for x,y screen positions. </p>
+<dl class="section note"><dt>Note</dt><dd>Needs to be signed to handle off screen positions. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a60c4f6da0fd47614ef01ddb0a7a9e5ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60c4f6da0fd47614ef01ddb0a7a9e5ef">&#9670;&nbsp;</a></span>lcd_drawArrow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawArrow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw arrow outline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>Begin X coordinate. </td></tr>
+    <tr><td class="paramname">y0</td><td>Begin Y coordinate. </td></tr>
+    <tr><td class="paramname">x1</td><td>End (arrow point) X coordinate. </td></tr>
+    <tr><td class="paramname">y1</td><td>End (arrow point) Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Half width of the arrow head in pixels. Height is 3*w. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9248b7dd9aa88e6223920d74bbbbc81c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9248b7dd9aa88e6223920d74bbbbc81c">&#9670;&nbsp;</a></span>lcd_drawBitmap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawBitmap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t *&#160;</td>
+          <td class="paramname"><em>bitmap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a 1-bit image at the specified location using the specified color for set bits. Unset bits are transparent (no change to destination). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Top left corner X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Top left corner Y coordinate. </td></tr>
+    <tr><td class="paramname">bitmap</td><td>Byte array with monochrome bitmap, one bit for each pixel. </td></tr>
+    <tr><td class="paramname">w</td><td>Width of bitmap in pixels. </td></tr>
+    <tr><td class="paramname">h</td><td>Height of bitmap in pixels. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>If the bitmap width is not a multiple of 8, The last byte on each row of the bitmap array needs to be padded with zeros. </dd></dl>
+
+</div>
+</div>
+<a id="af8e4578691d8ad7c8ca181aa05907eee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8e4578691d8ad7c8ca181aa05907eee">&#9670;&nbsp;</a></span>lcd_drawChar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> lcd_drawChar </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>ascii</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a single character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Top left corner X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Top left corner Y coordinate. </td></tr>
+    <tr><td class="paramname">ascii</td><td>ASCII encoded character. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The coordinate (in X or Y) of a potential following character. </dd></dl>
+
+</div>
+</div>
+<a id="a8a3cbdb874c04ae2aecb6a2c374532e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a3cbdb874c04ae2aecb6a2c374532e8">&#9670;&nbsp;</a></span>lcd_drawCircle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawCircle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>xc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>yc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a circle outline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xc</td><td>Center-point X coordinate. </td></tr>
+    <tr><td class="paramname">yc</td><td>Center-point Y coordinate. </td></tr>
+    <tr><td class="paramname">r</td><td>Radius of circle. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7a0b565ced84f4c33d684a7393014d57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a0b565ced84f4c33d684a7393014d57">&#9670;&nbsp;</a></span>lcd_drawHLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawHLine </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw horizontal line (faster than arbitrary line). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Width (extent) of line. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3322766401144c29e9a5ffae16cfc788"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3322766401144c29e9a5ffae16cfc788">&#9670;&nbsp;</a></span>lcd_drawHPixels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawHPixels </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> *&#160;</td>
+          <td class="paramname"><em>colors</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw multiple pixels in a horizontal line. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Width (extent) of line. </td></tr>
+    <tr><td class="paramname">colors</td><td>Array of color values, one for each pixel, length = w. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3bf0ae380f070b31774f8a8e36f9e628"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bf0ae380f070b31774f8a8e36f9e628">&#9670;&nbsp;</a></span>lcd_drawLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawLine </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a line between 2 arbitrary points. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>X coordinate for Point 0. </td></tr>
+    <tr><td class="paramname">y0</td><td>Y coordinate for Point 0. </td></tr>
+    <tr><td class="paramname">x1</td><td>X coordinate for Point 1. </td></tr>
+    <tr><td class="paramname">y1</td><td>Y coordinate for Point 1. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a10ec2ba645f78cf9921eb9af3e7bf70b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10ec2ba645f78cf9921eb9af3e7bf70b">&#9670;&nbsp;</a></span>lcd_drawPixel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawPixel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a pixel. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af7970b880a675aa42a99c7bca87e07ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7970b880a675aa42a99c7bca87e07ac">&#9670;&nbsp;</a></span>lcd_drawRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawRect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a rectangle outline with the specified color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Top left corner X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Top left corner Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Width in pixels. </td></tr>
+    <tr><td class="paramname">h</td><td>Height in pixels. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="af54cdc50eb981372a47d346b115665b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af54cdc50eb981372a47d346b115665b5">&#9670;&nbsp;</a></span>lcd_drawRect2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawRect2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a rectangle based on two diagonal corners. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>X coordinate for diagonal Corner 0. </td></tr>
+    <tr><td class="paramname">y0</td><td>Y coordinate for diagonal Corner 0. </td></tr>
+    <tr><td class="paramname">x1</td><td>X coordinate for diagonal Corner 1. </td></tr>
+    <tr><td class="paramname">y1</td><td>Y coordinate for diagonal Corner 1. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a99855ec3f73590a2175f231b82af36e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99855ec3f73590a2175f231b82af36e7">&#9670;&nbsp;</a></span>lcd_drawRectC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawRectC </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>xc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>yc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#abf93c956ebda204c8da416c71ffc2139">angle_t</a>&#160;</td>
+          <td class="paramname"><em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a rectangle outline based on a center point. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xc</td><td>Center X coordinate. </td></tr>
+    <tr><td class="paramname">yc</td><td>Center Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Width of rectangle. </td></tr>
+    <tr><td class="paramname">h</td><td>Height of rectangle. </td></tr>
+    <tr><td class="paramname">angle</td><td>Angle of rotation (degrees). </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="adfd05ed8ae9783db33fd907e2bf4c47d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfd05ed8ae9783db33fd907e2bf4c47d">&#9670;&nbsp;</a></span>lcd_drawRegularPolygonC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawRegularPolygonC </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>xc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>yc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#abf93c956ebda204c8da416c71ffc2139">angle_t</a>&#160;</td>
+          <td class="paramname"><em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a regular polygon outline based on a center point. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xc</td><td>Center X coordinate. </td></tr>
+    <tr><td class="paramname">yc</td><td>Center Y coordinate. </td></tr>
+    <tr><td class="paramname">n</td><td>Number of sides. </td></tr>
+    <tr><td class="paramname">r</td><td>Radius of polygon. </td></tr>
+    <tr><td class="paramname">angle</td><td>Angle of rotation (degrees). </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab993bfd3d0617976b72b4b8b5879a35d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab993bfd3d0617976b72b4b8b5879a35d">&#9670;&nbsp;</a></span>lcd_drawRGBBitmap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawRGBBitmap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a> *&#160;</td>
+          <td class="paramname"><em>bitmap</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw an image at the specified location. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Top left corner X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Top left corner Y coordinate. </td></tr>
+    <tr><td class="paramname">bitmap</td><td>Array of color values, one for each pixel, length = w * h. </td></tr>
+    <tr><td class="paramname">w</td><td>Width of bitmap in pixels. </td></tr>
+    <tr><td class="paramname">h</td><td>Height of bitmap in pixels. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a84706a0789eff79b046a6c2ab2e7379b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84706a0789eff79b046a6c2ab2e7379b">&#9670;&nbsp;</a></span>lcd_drawRoundRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawRoundRect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a rounded rectangle with no fill color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Top left corner X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Top left corner Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Width in pixels. </td></tr>
+    <tr><td class="paramname">h</td><td>Height in pixels. </td></tr>
+    <tr><td class="paramname">r</td><td>Radius of corner rounding. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad524ec2613858faed6b34a7b2817ca41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad524ec2613858faed6b34a7b2817ca41">&#9670;&nbsp;</a></span>lcd_drawRoundRect2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawRoundRect2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a rounded rectangle based on two diagonal corners. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>X coordinate for diagonal Corner 0. </td></tr>
+    <tr><td class="paramname">y0</td><td>Y coordinate for diagonal Corner 0. </td></tr>
+    <tr><td class="paramname">x1</td><td>X coordinate for diagonal Corner 1. </td></tr>
+    <tr><td class="paramname">y1</td><td>Y coordinate for diagonal Corner 1. </td></tr>
+    <tr><td class="paramname">r</td><td>Radius of rounded corners. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae7c84776fd07de366a60c9209e0e37c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7c84776fd07de366a60c9209e0e37c1">&#9670;&nbsp;</a></span>lcd_drawString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a> lcd_drawString </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>ascii</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Top left corner X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Top left corner Y coordinate. </td></tr>
+    <tr><td class="paramname">ascii</td><td>ASCII encoded string, zero terminated. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The coordinate (in X or Y) of a potential following character. </dd></dl>
+
+</div>
+</div>
+<a id="af9c149f618d4020f7a26ae887b1e7623"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9c149f618d4020f7a26ae887b1e7623">&#9670;&nbsp;</a></span>lcd_drawTriangle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawTriangle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a triangle outline using 3 arbitrary points. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>X coordinate for Vertex 0. </td></tr>
+    <tr><td class="paramname">y0</td><td>Y coordinate for Vertex 0. </td></tr>
+    <tr><td class="paramname">x1</td><td>X coordinate for Vertex 1. </td></tr>
+    <tr><td class="paramname">y1</td><td>Y coordinate for Vertex 1. </td></tr>
+    <tr><td class="paramname">x2</td><td>X coordinate for Vertex 2. </td></tr>
+    <tr><td class="paramname">y2</td><td>Y coordinate for Vertex 2. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a758438c1cbb61fe7866a53a02f4e0e7d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a758438c1cbb61fe7866a53a02f4e0e7d">&#9670;&nbsp;</a></span>lcd_drawTriangleC()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawTriangleC </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>xc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>yc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#abf93c956ebda204c8da416c71ffc2139">angle_t</a>&#160;</td>
+          <td class="paramname"><em>angle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a triangle outline based on a center point. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xc</td><td>Center X coordinate. </td></tr>
+    <tr><td class="paramname">yc</td><td>Center Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Width of triangle. </td></tr>
+    <tr><td class="paramname">h</td><td>Height of triangle. </td></tr>
+    <tr><td class="paramname">angle</td><td>Angle of rotation (degrees). </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae9275f229ee7c90c874cb937af4b2e1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9275f229ee7c90c874cb937af4b2e1f">&#9670;&nbsp;</a></span>lcd_drawVLine()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_drawVLine </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw vertical line (faster than arbitrary line). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Y coordinate. </td></tr>
+    <tr><td class="paramname">h</td><td>Height (extent) of line. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ad33bf0d8fa3f8fcb2e960618276b75b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad33bf0d8fa3f8fcb2e960618276b75b0">&#9670;&nbsp;</a></span>lcd_fillArrow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_fillArrow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw filled arrow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>Begin X coordinate. </td></tr>
+    <tr><td class="paramname">y0</td><td>Begin Y coordinate. </td></tr>
+    <tr><td class="paramname">x1</td><td>End (arrow point) X coordinate. </td></tr>
+    <tr><td class="paramname">y1</td><td>End (arrow point) Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Half width of the arrow head in pixels. Height is 3*w. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6a315f478f16a3c23c8867a2a5ce37d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a315f478f16a3c23c8867a2a5ce37d0">&#9670;&nbsp;</a></span>lcd_fillCircle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_fillCircle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>xc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>yc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a circle with filled color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">xc</td><td>Center-point X coordinate. </td></tr>
+    <tr><td class="paramname">yc</td><td>Center-point Y coordinate. </td></tr>
+    <tr><td class="paramname">r</td><td>Radius of circle. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a905c35e881e7645e5f3dc430e01d6a2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a905c35e881e7645e5f3dc430e01d6a2b">&#9670;&nbsp;</a></span>lcd_fillRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_fillRect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a filled rectangle with the specified color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Top left corner X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Top left corner Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Width in pixels. </td></tr>
+    <tr><td class="paramname">h</td><td>Height in pixels. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac1b371c3203f77ad5432c4a698405387"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1b371c3203f77ad5432c4a698405387">&#9670;&nbsp;</a></span>lcd_fillRect2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_fillRect2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a filled rectangle based on two diagonal corners. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>X coordinate for diagonal Corner 0. </td></tr>
+    <tr><td class="paramname">y0</td><td>Y coordinate for diagonal Corner 0. </td></tr>
+    <tr><td class="paramname">x1</td><td>X coordinate for diagonal Corner 1. </td></tr>
+    <tr><td class="paramname">y1</td><td>Y coordinate for diagonal Corner 1. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac9c35f27fb4d3ad243817503410c9b76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9c35f27fb4d3ad243817503410c9b76">&#9670;&nbsp;</a></span>lcd_fillRoundRect()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_fillRoundRect </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>w</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>h</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a rounded rectangle with fill color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Top left corner X coordinate. </td></tr>
+    <tr><td class="paramname">y</td><td>Top left corner Y coordinate. </td></tr>
+    <tr><td class="paramname">w</td><td>Width in pixels. </td></tr>
+    <tr><td class="paramname">h</td><td>Height in pixels. </td></tr>
+    <tr><td class="paramname">r</td><td>Radius of corner rounding. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a291ede087907e14f7a7e68aad2c0fb8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a291ede087907e14f7a7e68aad2c0fb8c">&#9670;&nbsp;</a></span>lcd_fillRoundRect2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_fillRoundRect2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a filled, rounded rectangle based on two diagonal corners. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>X coordinate for diagonal Corner 0. </td></tr>
+    <tr><td class="paramname">y0</td><td>Y coordinate for diagonal Corner 0. </td></tr>
+    <tr><td class="paramname">x1</td><td>X coordinate for diagonal Corner 1. </td></tr>
+    <tr><td class="paramname">y1</td><td>Y coordinate for diagonal Corner 1. </td></tr>
+    <tr><td class="paramname">r</td><td>Radius of rounded corners. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a98543a510b36ae6c5e3e9bbc8ecc9466"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98543a510b36ae6c5e3e9bbc8ecc9466">&#9670;&nbsp;</a></span>lcd_fillScreen()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_fillScreen </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Fill the screen with one color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7c5e193af4b230933e7496176735e7c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c5e193af4b230933e7496176735e7c1">&#9670;&nbsp;</a></span>lcd_fillTriangle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_fillTriangle </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>x2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>y2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draw a filled triangle using 3 arbitrary points. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x0</td><td>X coordinate for Vertex 0. </td></tr>
+    <tr><td class="paramname">y0</td><td>Y coordinate for Vertex 0. </td></tr>
+    <tr><td class="paramname">x1</td><td>X coordinate for Vertex 1. </td></tr>
+    <tr><td class="paramname">y1</td><td>Y coordinate for Vertex 1. </td></tr>
+    <tr><td class="paramname">x2</td><td>X coordinate for Vertex 2. </td></tr>
+    <tr><td class="paramname">y2</td><td>Y coordinate for Vertex 2. </td></tr>
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6af89f7b6926e90d7fc6a1be2604f0ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6af89f7b6926e90d7fc6a1be2604f0ce">&#9670;&nbsp;</a></span>lcd_getFrameBuffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>* lcd_getFrameBuffer </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the frame buffer. </p>
+<dl class="section return"><dt>Returns</dt><dd>A pointer to the frame buffer or NULL if not allocated. </dd></dl>
+
+</div>
+</div>
+<a id="a7128b6c87b7de480f9d9c4d7deed44b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7128b6c87b7de480f9d9c4d7deed44b9">&#9670;&nbsp;</a></span>lcd_setFontBackground()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_setFontBackground </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a1fb59ae1391d527c0bd119b5a95fb8a1">color_t</a>&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set font background color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>Color value. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a94a61329f21b7e4fe40ec37de7aa9e37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94a61329f21b7e4fe40ec37de7aa9e37">&#9670;&nbsp;</a></span>lcd_setFontDirection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_setFontDirection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ae9ae980041e438eed7a3af43ce4e9f6b">direction_t</a>&#160;</td>
+          <td class="paramname"><em>dir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set font direction. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>Font direction. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Not implemented. Direction is always 0. </dd></dl>
+
+</div>
+</div>
+<a id="aacf4729d53cadebe4019ed6a4f5e5ff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacf4729d53cadebe4019ed6a4f5e5ff4">&#9670;&nbsp;</a></span>lcd_setFontSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_setFontSize </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set font size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>Font size scale factor (1 or greater). </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a50214076465d14ac46e93b3d6883347d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50214076465d14ac46e93b3d6883347d">&#9670;&nbsp;</a></span>lcd_spiClockFreq()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_spiClockFreq </td>
+          <td>(</td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>freq</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set SPI clock frequency for SPI bus used by display. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">freq</td><td>Frequency in Hz. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a935574f6974c07b0c466380fdfa39a12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a935574f6974c07b0c466380fdfa39a12">&#9670;&nbsp;</a></span>lcd_wrapAround()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lcd_wrapAround </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a78ba51821d0743b87f3621e248cd109b">scroll_t</a>&#160;</td>
+          <td class="paramname"><em>scroll</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a333c39cc06c1009276b4be1196a87d3d">coord_t</a>&#160;</td>
+          <td class="paramname"><em>end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Scroll image by one pixel between the start and end coordinates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scroll</td><td>Scroll direction. </td></tr>
+    <tr><td class="paramname">start</td><td>Start of range in X or Y (depends on scroll direction). </td></tr>
+    <tr><td class="paramname">end</td><td>End of range in X or Y (depends on scroll direction). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section note"><dt>Note</dt><dd>Requires frame buffer to be enabled. </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generated by&#160;<a href="https://www.doxygen.org/index.html">doxygen</a> 1.9.1
+</small></address>
+</body>
+</html>
